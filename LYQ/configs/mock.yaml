@@ -1,0 +1,5 @@
+# 覆盖 defaults.yaml；仅用于未来无硬件验证。
+backend: mock
+hardware_enabled: false
+# 技能实现并通过模拟验收前，不宣布可用。
+skills: []

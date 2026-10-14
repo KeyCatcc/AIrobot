@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robot-platform"
+version = "0.0.0"
+description = "S0-S5 robot agent migration design scaffold"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["robot_platform*"]
+exclude = ["*.tests", "*.tests.*"]

@@ -1,0 +1,6 @@
+# 设计示例，尚无配置加载器；真实硬件必须显式选择后端。
+schema_version: 1
+profile: null
+backend: mock
+skills: []
+hardware_enabled: false
