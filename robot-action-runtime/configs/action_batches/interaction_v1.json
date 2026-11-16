@@ -1,0 +1,38 @@
+{
+  "actions": [
+    {
+      "name": "attentive_listen",
+      "enabled": true,
+      "amplitude": 0.2,
+      "description": "倾听姿势。用于用户明确要求做倾听姿势，或机器人明确表达愿意听对方继续讲述。不是每轮收音自动触发，不用于普通事实、引用或否定。"
+    },
+    {
+      "name": "confident_assertive",
+      "enabled": true,
+      "amplitude": 0.2,
+      "description": "强调讲解的姿势。用于用户明确要求强调手势，或机器人明确强调重点时辅助表达。不用于任意事实陈述，不表示左右或前方指引，不表示庆祝。"
+    },
+    {
+      "name": "curious_lean",
+      "enabled": false
+    },
+    {
+      "name": "nod_emphatic",
+      "description": "点头。用于明确要求点头、对他人的明确认同，或机器人直接向对方表达感谢时作为礼貌回应。引用、讨论、否定或不确定内容不触发。感谢复用同一个动作，不重复执行；当前时长沿用原实现，并非已实现简短点头。"
+    },
+    {
+      "name": "celebration",
+      "enabled": true,
+      "amplitude": 0.2,
+      "description": "庆祝或表达喜悦的姿势。用于用户明确要求庆祝动作，或对任务成功、好消息、共同成就明确表达喜悦。不泛用于所有鼓励，不用于安慰低落的人、普通欢迎、任意赞美、引用或否定。"
+    }
+  ],
+  "cases": [
+    {"label": "明确倾听姿势", "user": "请做个倾听的姿势。", "reply": "我认真听你说，", "action": "attentive_listen", "source": "user_request"},
+    {"label": "明确强调手势", "user": "请做一个强调重点的手势。", "reply": "这一点尤其重要，", "action": "confident_assertive", "source": "user_request"},
+    {"label": "感谢复用点头", "user": "我帮你整理好了资料。", "reply": "谢谢你的帮助，", "action": "nod_emphatic", "source": "reply_accompaniment"},
+    {"label": "庆祝要求", "user": "请做个庆祝动作。", "reply": "太棒了，", "action": "celebration", "source": "user_request"},
+    {"label": "安慰不是庆祝", "user": "今天失败了，我很难过。", "reply": "我愿意陪着你，", "action": "none", "source": "none"},
+    {"label": "禁止所有动作", "user": "不要做任何动作，只说谢谢。", "reply": "谢谢你，", "action": "none", "source": "none"}
+  ]
+}

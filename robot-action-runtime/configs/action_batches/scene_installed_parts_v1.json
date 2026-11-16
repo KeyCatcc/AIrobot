@@ -1,0 +1,108 @@
+{
+  "actions": [
+    {
+      "name": "欢迎您",
+      "enabled": true,
+      "amplitude": 0.35
+    },
+    {
+      "name": "召唤/过来",
+      "enabled": true,
+      "amplitude": 0.35
+    },
+    {
+      "name": "point_forward",
+      "enabled": true,
+      "amplitude": 0.35
+    },
+    {
+      "name": "attentive_listen",
+      "enabled": true,
+      "amplitude": 0.35
+    },
+    {
+      "name": "confident_assertive",
+      "enabled": true,
+      "amplitude": 0.35
+    },
+    {
+      "name": "celebration",
+      "enabled": true,
+      "amplitude": 0.35
+    },
+    {
+      "name": "stop_gesture",
+      "enabled": false
+    },
+    {
+      "name": "open_arms_triumphant",
+      "enabled": false
+    },
+    {
+      "name": "肌肉",
+      "enabled": false
+    },
+    {
+      "name": "所以说",
+      "enabled": false
+    }
+  ],
+  "cases": [
+    {
+      "label": "欢迎您",
+      "user": "请正式欢迎我来到展厅。",
+      "reply": "欢迎您来到展厅参观，",
+      "action": "欢迎您",
+      "source": "reply_accompaniment"
+    },
+    {
+      "label": "召唤/过来",
+      "user": "请做手势邀请我靠近你。",
+      "reply": "请到我这边来，",
+      "action": "召唤/过来",
+      "source": "user_request"
+    },
+    {
+      "label": "point_forward",
+      "user": "请向你自己的正前方做指引手势。",
+      "reply": "请看我正前方，",
+      "action": "point_forward",
+      "source": "user_request"
+    },
+    {
+      "label": "attentive_listen",
+      "user": "请做一个认真倾听的姿势。",
+      "reply": "我认真听你说，",
+      "action": "attentive_listen",
+      "source": "user_request"
+    },
+    {
+      "label": "confident_assertive",
+      "user": "请做一个强调重点的手势。",
+      "reply": "这一点尤其重要，",
+      "action": "confident_assertive",
+      "source": "user_request"
+    },
+    {
+      "label": "celebration",
+      "user": "请做一个庆祝成功的动作。",
+      "reply": "太棒了，",
+      "action": "celebration",
+      "source": "user_request"
+    },
+    {
+      "label": "禁止动作",
+      "user": "不要做任何手势，只说欢迎。",
+      "reply": "欢迎您，",
+      "action": "none",
+      "source": "none"
+    },
+    {
+      "label": "普通事实",
+      "user": "铜是什么？",
+      "reply": "铜是一种金属，",
+      "action": "none",
+      "source": "none"
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "actions": [
+    {
+      "name": "欢迎您",
+      "enabled": true,
+      "amplitude": 0.35,
+      "description": "正式迎宾双臂欢迎姿势，用于欢迎访客到达或参观；普通简短问候或告别不选。"
+    },
+    {
+      "name": "召唤/过来",
+      "enabled": true,
+      "amplitude": 0.35,
+      "description": "邀请对方靠近机器人，不表示机器人移动或带路。"
+    },
+    {
+      "name": "point_forward",
+      "enabled": true,
+      "amplitude": 0.35,
+      "description": "向机器人自身正前方指引对象，不表示移动或抓取。"
+    },
+    {
+      "name": "attentive_listen",
+      "enabled": true,
+      "amplitude": 0.35,
+      "description": "倾听姿势，用于明确要求倾听姿势或明确表示愿意听对方讲述，不是每轮收音自动触发。"
+    },
+    {
+      "name": "confident_assertive",
+      "enabled": true,
+      "amplitude": 0.35,
+      "description": "强调讲解姿势，用于明确要求强调重点的手势或明确强调重点；不是任意事实或方向指引。"
+    },
+    {
+      "name": "celebration",
+      "enabled": true,
+      "amplitude": 0.35,
+      "description": "庆祝喜悦姿势，用于明确要求庆祝动作或对成功明确表达喜悦；不泛用于安慰、普通问候。"
+    },
+    {
+      "name": "stop_gesture",
+      "enabled": true,
+      "amplitude": 0.35,
+      "description": "礼貌示意稍等或暂停的表达手势，仅表达，不是系统停止、硬件停止或急停。"
+    },
+    {
+      "name": "open_arms_triumphant",
+      "enabled": true,
+      "amplitude": 0.35,
+      "description": "高举双臂表达胜利的庆祝变体。仅明确要求高举双臂庆祝胜利时优先选择；普通庆祝用celebration。"
+    },
+    {
+      "name": "肌肉",
+      "enabled": true,
+      "amplitude": 0.35,
+      "description": "展示双臂肌肉或力量的娱乐姿势，不用于普通鼓励、安慰或讲解。"
+    },
+    {
+      "name": "所以说",
+      "enabled": true,
+      "amplitude": 0.35,
+      "description": "辅助总结或解释的双臂讲解姿势，用于明确要求总结手势或明确总结语境；不是侧向指引或强调变体。"
+    },
+    {
+      "name": "curious_lean",
+      "enabled": false
+    },
+    {
+      "name": "point_left_forward",
+      "enabled": false
+    },
+    {
+      "name": "present_left_grand",
+      "enabled": false
+    },
+    {
+      "name": "present_right_grand",
+      "enabled": false
+    },
+    {
+      "name": "explain_left_emphatic",
+      "enabled": false
+    },
+    {
+      "name": "explain_right_emphatic",
+      "enabled": false
+    }
+  ],
+  "cases": [
+    {
+      "label": "欢迎您",
+      "user": "请正式欢迎我来到展厅。",
+      "reply": "欢迎您来到展厅参观，",
+      "action": "欢迎您",
+      "source": "reply_accompaniment"
+    },
+    {
+      "label": "召唤/过来",
+      "user": "请做手势邀请我靠近你。",
+      "reply": "请到我这边来，",
+      "action": "召唤/过来",
+      "source": "user_request"
+    },
+    {
+      "label": "point_forward",
+      "user": "请向你自己的正前方做指引手势。",
+      "reply": "请看我正前方，",
+      "action": "point_forward",
+      "source": "user_request"
+    },
+    {
+      "label": "attentive_listen",
+      "user": "请做一个认真倾听的姿势。",
+      "reply": "我认真听你说，",
+      "action": "attentive_listen",
+      "source": "user_request"
+    },
+    {
+      "label": "confident_assertive",
+      "user": "请做一个强调重点的手势。",
+      "reply": "这一点尤其重要，",
+      "action": "confident_assertive",
+      "source": "user_request"
+    },
+    {
+      "label": "celebration",
+      "user": "请做一个庆祝成功的动作。",
+      "reply": "太棒了，",
+      "action": "celebration",
+      "source": "user_request"
+    },
+    {
+      "label": "stop_gesture",
+      "user": "请做一个示意稍等的手势。",
+      "reply": "请稍等一下，",
+      "action": "stop_gesture",
+      "source": "user_request"
+    },
+    {
+      "label": "open_arms_triumphant",
+      "user": "请高举双臂做胜利庆祝姿势。",
+      "reply": "我们成功了，",
+      "action": "open_arms_triumphant",
+      "source": "user_request"
+    },
+    {
+      "label": "肌肉",
+      "user": "请做一个展示双臂肌肉的姿势。",
+      "reply": "看我的力量展示，",
+      "action": "肌肉",
+      "source": "user_request"
+    },
+    {
+      "label": "所以说",
+      "user": "请做一个总结说明的手势。",
+      "reply": "所以说，这就是整体结论，",
+      "action": "所以说",
+      "source": "user_request"
+    },
+    {
+      "label": "禁止动作",
+      "user": "不要做任何手势，只说欢迎。",
+      "reply": "欢迎您，",
+      "action": "none",
+      "source": "none"
+    },
+    {
+      "label": "普通事实",
+      "user": "铜是什么？",
+      "reply": "铜是一种金属，",
+      "action": "none",
+      "source": "none"
+    }
+  ]
+}

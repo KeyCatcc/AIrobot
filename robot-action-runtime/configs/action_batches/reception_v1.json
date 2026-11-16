@@ -1,0 +1,15 @@
+{
+  "actions": [
+    {"name": "欢迎您", "enabled": true, "amplitude": 0.2, "description": "正式迎宾双臂欢迎姿势，用于欢迎访客到达或参观；普通简短问候、告别不选。"},
+    {"name": "召唤/过来", "enabled": true, "amplitude": 0.2, "description": "邀请对方靠近机器人或到身边来，不表示机器人移动或带路，不用于欢迎或告别挥手。"},
+    {"name": "point_forward", "enabled": true, "amplitude": 0.2, "description": "指向机器人自身正前方的对象，不用于左右侧介绍，不表示移动、带路或抓取。"},
+    {"name": "point_left_forward", "enabled": false}
+  ],
+  "cases": [
+    {"label": "正式欢迎", "user": "请正式欢迎我来到展厅。", "reply": "欢迎您来到展厅参观，", "action": "欢迎您", "source": "reply_accompaniment"},
+    {"label": "邀请靠近", "user": "请做手势邀请我靠近你。", "reply": "请到我这边来，", "action": "召唤/过来", "source": "user_request"},
+    {"label": "前方指引", "user": "请向你正前方做指引手势。", "reply": "请看我正前方的展品，", "action": "point_forward", "source": "user_request"},
+    {"label": "禁止动作", "user": "不要做任何手势，欢迎我一下。", "reply": "欢迎您，", "action": "none", "source": "none"},
+    {"label": "普通事实", "user": "铜是什么材料？", "reply": "铜是一种金属，", "action": "none", "source": "none"}
+  ]
+}

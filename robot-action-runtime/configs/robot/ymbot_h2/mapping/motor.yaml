@@ -1,0 +1,41 @@
+# 机器人关节弧度转换为电机绝对角度
+
+robot: ymbot_h2
+home_deg: 180.0
+shm_path: /dev/shm/arm_shared_memory_j14
+neck_indices: [0, 1]
+waist_indices: [12, 13]
+
+xml_dof_names:
+  - waist_pitch_joint
+  - waist_yaw_joint
+  - left_shoulder_pitch_joint
+  - left_shoulder_roll_joint
+  - left_shoulder_yaw_joint
+  - left_elbow_pitch_joint
+  - left_elbow_yaw_joint
+  - left_wrist_pitch_joint
+  - right_shoulder_pitch_joint
+  - right_shoulder_roll_joint
+  - right_shoulder_yaw_joint
+  - right_elbow_pitch_joint
+  - right_elbow_yaw_joint
+  - right_wrist_pitch_joint
+  - neck_yaw_joint
+  - neck_pitch_joint
+
+motors:
+  - {joint: neck_pitch_joint, index: 0, motor_id: 21, sign: 1.0, scale: 1.0}
+  - {joint: neck_yaw_joint, index: 1, motor_id: 22, sign: 1.0, scale: 1.0}
+  - {joint: left_shoulder_pitch_joint, index: 2, motor_id: 31, sign: 1.0, scale: 1.0}
+  - {joint: left_shoulder_roll_joint, index: 3, motor_id: 32, sign: -1.0, scale: 1.0}
+  - {joint: left_shoulder_yaw_joint, index: 4, motor_id: 33, sign: -1.0, scale: 1.0}
+  - {joint: left_elbow_pitch_joint, index: 5, motor_id: 34, sign: -1.0, scale: 1.0}
+  - {joint: left_elbow_yaw_joint, index: 6, motor_id: 35, sign: -1.0, scale: 1.0}
+  - {joint: right_shoulder_pitch_joint, index: 7, motor_id: 41, sign: -1.0, scale: 1.0}
+  - {joint: right_shoulder_roll_joint, index: 8, motor_id: 42, sign: -1.0, scale: 1.0}
+  - {joint: right_shoulder_yaw_joint, index: 9, motor_id: 43, sign: 1.0, scale: 1.0}
+  - {joint: right_elbow_pitch_joint, index: 10, motor_id: 44, sign: 1.0, scale: 1.0}
+  - {joint: right_elbow_yaw_joint, index: 11, motor_id: 45, sign: 1.0, scale: 1.0}
+  - {joint: waist_pitch_joint, index: 12, motor_id: 11, sign: 1.0, scale: 1.0}
+  - {joint: waist_yaw_joint, index: 13, motor_id: 12, sign: 1.0, scale: 1.0}

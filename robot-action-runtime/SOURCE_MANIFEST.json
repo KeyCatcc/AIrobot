@@ -1,0 +1,48 @@
+{
+  "source": "serverobot-v2",
+  "files": [
+    {
+      "path": "scripts/test_custom_actions.py",
+      "sha256": "94800ef1b1cadeedcea9e3afc793fb74fea08c19b20f747d99603b8221e476a0"
+    },
+    {
+      "path": "modules/base.py",
+      "sha256": "f72911d1bd872ee19e9a7bfc0588410538f3e81dbb11e8349b2eef245affbf61"
+    },
+    {
+      "path": "modules/motor_map.py",
+      "sha256": "32b35f4b2aff65e47cab0a028e484a4bab65e308acdc2670d2a8f97fe731a6f9"
+    },
+    {
+      "path": "modules/motor_pub.py",
+      "sha256": "f539285fc78880c6f31706348536ae1d8bb75dcfb67c487f7077856c39977e30"
+    },
+    {
+      "path": "modules/action_pub.py",
+      "sha256": "f0c814ea28ea85077b8032339ea30ec7acb02e9c48f5b429875dc5570d18dba0"
+    },
+    {
+      "path": "utils/utils.py",
+      "sha256": "64f99233f10f7f6e68f8b1b02256972786ca4c61af24ef542308c33c2c9606b6"
+    },
+    {
+      "path": "configs/gestures/custom_actions.json",
+      "sha256": "259b692137c04e6a3d7dbf7f5a887eddd5717f8f5aed6c335338d32eb4c9073a"
+    },
+    {
+      "path": "configs/gestures/custom_gestures.json",
+      "sha256": "5fa8be8eb2ad707ce2ddc476383f6a15c5c30b55187d2fa869da5e8c4de7be51"
+    },
+    {
+      "path": "configs/robot/ymbot_h2/mapping/motor.yaml",
+      "sha256": "f2487a7509bf135d5030e9e188f6af00abfcedabd806cae9bf1d9974610e1643"
+    }
+  ],
+  "overrides": [
+    {
+      "path": "configs/robot/ymbot_h2/mapping/motor.yaml",
+      "source": "user supplied motor.yaml 2026-11-02",
+      "sha256": "f2487a7509bf135d5030e9e188f6af00abfcedabd806cae9bf1d9974610e1643"
+    }
+  ]
+}

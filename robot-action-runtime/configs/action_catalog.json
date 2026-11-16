@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "actions": [
+    {
+      "name": "挥手/招手",
+      "enabled": true,
+      "description": "向人挥手；可响应明确挥手要求，也可伴随实际问候、欢迎与告别。讨论、引用、否定不触发。",
+      "amplitude": 0.5
+    },
+    {
+      "name": "welcome_gesture",
+      "enabled": false,
+      "description": "单个欢迎姿势，尚未作为独立能力完成当前链路验收。",
+      "amplitude": 0.2
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+# MoveIt 到电机驱动映射配置
+# MoveIt to Motor Driver Mapping Configuration
+
+moveit_to_motor_mapping:
+  ros__parameters:
+    # 输入话题（MoveIt执行后的关节状态）
+    input_topic: "/joint_states"
+    
+    # 关节映射：电机索引 -> MoveIt关节名称
+    # 电机索引顺序：0,1=脖子(21,22); 2-6=左臂(31-35); 7-11=右臂(41-45); 12,13=腰(11,12)
+    joint_mapping:
+      0: "neck_pitch_joint"              # 脖子俯仰 (电机ID: 21)
+      1: "neck_yaw_joint"                 # 脖子左右 (电机ID: 22)
+      2: "left_shoulder_pitch_joint"     # 左肩前后 (电机ID: 31)
+      3: "left_shoulder_roll_joint"      # 左肩内外 (电机ID: 32)
+      4: "left_shoulder_yaw_joint"       # 左肩旋转 (电机ID: 33)
+      5: "left_elbow_pitch_joint"        # 左肘弯曲 (电机ID: 34)
+      6: "left_elbow_yaw_joint"          # 左肘旋转 (电机ID: 35) - wrist改为elbow_yaw
+      7: "right_shoulder_pitch_joint"    # 右肩前后 (电机ID: 41)
+      8: "right_shoulder_roll_joint"     # 右肩内外 (电机ID: 42)
+      9: "right_shoulder_yaw_joint"      # 右肩旋转 (电机ID: 43)
+      10: "right_elbow_pitch_joint"      # 右肘弯曲 (电机ID: 44)
+      11: "right_elbow_yaw_joint"        # 右肘旋转 (电机ID: 45) - wrist改为elbow_yaw
+      12: "waist_pitch_joint"            # 腰部俯仰/弯腰 (电机ID: 11)
+      13: "waist_yaw_joint"              # 腰部左右 (电机ID: 12)
+    
+    # 注意：
+    # - waist_pitch_joint 和 waist_yaw_joint 由新14关节底层的索引12、13控制
+    # - wrist_pitch 和手指走舵机串口链路（不走14路意优电机）
+    
+    # 🎯 关节方向映射（true=反向，false=正常）
+    # 如果某个关节的运动方向与RViz相反，设置为true
+    # 映射公式：电机角度 = 180 + (MoveIt角度 * direction_scale)
+    # direction_scale = -1.0 (如果reverse=true) 或 1.0 (如果reverse=false)
+    joint_direction_reverse:
+      0: true   # neck_pitch - 脖子俯仰
+      1: true   # neck_yaw - 脖子左右
+      2: true   # left_shoulder_pitch - 左肩前后
+      3: true   # left_shoulder_roll - 左肩内外
+      4: true  # left_shoulder_yaw - 左肩旋转
+      5: false   # left_elbow_pitch - 左肘弯曲
+      6: false   # left_elbow_yaw - 左肘旋转
+      7: true   # right_shoulder_pitch - 右肩前后
+      8: true   # right_shoulder_roll - 右肩内外
+      9: true   # right_shoulder_yaw - 右肩旋转
+      10: true  # right_elbow_pitch - 右肘弯曲
+      11: false  # right_elbow_yaw - 右肘旋转
+      12: false  # waist_pitch - 腰部俯仰
+      13: false  # waist_yaw - 腰部左右
+    
+    # 关节角度偏移量（度）- 可选，用于微调
+    # 如果某个关节的角度需要补偿，在这里设置
+    joint_offsets:
+      0: 0.0   # neck_pitch
+      1: 0.0   # neck_yaw
+      2: 0.0   # left_shoulder_pitch
+      3: 0.0   # left_shoulder_roll
+      4: 0.0   # left_shoulder_yaw
+      5: 0.0   # left_elbow_pitch
+      6: 0.0   # left_elbow_yaw
+      7: 0.0   # right_shoulder_pitch
+      8: 0.0   # right_shoulder_roll
+      9: 0.0   # right_shoulder_yaw
+      10: 0.0  # right_elbow_pitch
+      11: 0.0  # right_elbow_yaw
+      12: 0.0  # waist_pitch
+      13: 0.0  # waist_yaw
+    
+    # 安全配置
+    safety:
+      enable_limits: true                    # 启用速度限制
+      max_velocity_deg_per_sec: 200.0         # 最大关节速度（度/秒）
+      position_tolerance_deg: 10.0            # 位置容差（度）
+
+    # 舵机控制配置（wrist_pitch 和手指）
+    # ym_info 获取方式二选一：
+    # - info_read_only: true → 打开串口后只读（设备主动连续上报时用）
+    # - info_read_only: false → 先 info_drain_ms 短读排空欢迎行，再发 info_request_cmd，再读正文
+    # RS485 共线：左右手共用 serial_port，帧前加 L/R，例如 R#Veri+...、L#FRead-ym_info.txt、R#1P1500...T300
+    # 鲁班猫/YM 类板常见：上电先发 #Veri+...，读文件用协议帧 #FRead-ym_info.txt（不是 shell 的 cat）
+    # ym_info 支持两种格式（自动识别）：
+    # A) 每行 key=value（id/joint/min/max/...）
+    # B) YM 板三行 PWM：R 之后三行 #nP，依次为自然位、最大脉宽、最小脉宽
+    #    pulse_map_mode=neutral_linear（默认）：关节 0rad 对齐自然脉宽，±neutral_*_span_rad 内线性到 min/max
+    #    pulse_map_mode=full_span：按 source_min/max 或 live 统计范围线性映射；live 不足时用 fallback_joint_span 对称区间
+    #    通道号与关节名需在 left_servo_channels / right_servo_channels 配置
+    # use_live_source_range=true 时，full_span 下会优先用实时统计的关节最小/最大值做映射
+    servo_control:
+      enable: true
+      serial_port: "/dev/ttyCH341USB0"
+      rs485_shared_bus: true
+      left_prefix: "L"
+      right_prefix: "R"
+      left_serial_port: "/dev/ttyCH341USB0"
+      right_serial_port: "/dev/ttyCH341USB0"
+      baud_rate: 115200
+      rate_hz: 10.0
+      move_time_ms: 300
+      info_read_only: false
+      info_drain_ms: 500
+      info_read_timeout_ms: 5000
+      info_request_cmd: "#FRead-ym_info.txt"
+      source_min_default_rad: -1.57
+      source_max_default_rad: 1.57
+      use_live_source_range: true
+      live_min_span_rad: 0.008
+      pulse_map_mode: "neutral_linear"
+      neutral_pos_span_rad: 0.55
+      neutral_neg_span_rad: 0.55
+      # 各手指/各舵机行程不同：在 neutral_linear 下可对「每路 ID」单独设正/负向弧度跨度（覆盖上面全局值）。
+      # 数值越小 → 同样关节角变化对应脉宽变化越大。可只写 span（正负同值），或分别写 pos / neg。
+      # 通道号与 left_servo_channels / right_servo_channels 中 id 一致（1～7）。
+      # left_servo_neutral_span_by_id:
+      #   1: { span: 0.45 }
+      #   2: { pos: 0.4, neg: 0.5 }
+      # right_servo_neutral_span_by_id:
+      #   1: { span: 0.45 }
+      # 7 号手腕全局默认（左手 7 路未单独写 span 时用此值）。数值越小→同样关节角脉宽变化越大。
+      wrist_neutral_pos_span_rad: 0.153
+      wrist_neutral_neg_span_rad: 0.153
+      use_fallback_symmetric_span: true
+      fallback_joint_span_rad: 0.55
+      input_joint_rate_hz: 60.0
+      # false：定时器按 rate_hz 每周期用最新 JointState 下发（CSV 帧率≠60 时更稳）。true：按帧序号整除抽样，易与真实 fps 不一致导致长期不发。
+      align_by_frame: false
+      # 右手与左手在 URDF 上关节轴镜像时，可试 right_servo_joint_rad_sign: -1（不改手腕，手腕由 wrist_pitch 判定跳过 sign）。
+      # 若单路方向反，用 left/right_servo_channel_reverse 按舵机 id 翻转脉宽；线序以当前 1～7 与 left/right_servo_channels 为准。
+      left_servo_joint_rad_sign: 1.0
+      right_servo_joint_rad_sign: 1.0
+      # 若主话题 /joint_states 里手指总被写成 0，可把 SMPL 映射器 output 指到独立话题并填此处，例如：
+      # servo_merge_topic: "/robot_joint_states"
+      servo_merge_topic: ""
+      # 舵机线序（与 ym_info #1P…#7P 一致）：1小指 2无名指 3中指 4食指 5拇指pitch 6拇指roll 7手腕
+      #
+      # 单路方向：改 left/right_servo_joint_rad_sign_by_id，填 1.0 或 -1.0（屈伸反了用 -1）
+      # 勿与同 ID 的 channel_reverse 同时用（下方 reverse 已留空，统一用 sign）
+      # 零位微调：left/right_servo_joint_rad_offset，单位弧度（度×π/180，如 15°≈0.262）
+      # 手腕行程：right_servo_neutral_span_by_id 的 7，span 越小幅度越大
+      left_servo_channel_reverse: {}
+      right_servo_channel_reverse: {}
+      left_servo_joint_rad_sign_by_id:
+        1: -1.0   # 小指  left_finger_5_pitch_joint
+        2: 1.0   # 无名指 left_finger_4_pitch_joint
+        3: -1.0   # 中指  left_finger_3_pitch_joint
+        4: -1.0   # 食指  left_finger_2_pitch_joint
+        5: -1.0    # 拇指 pitch left_finger_1_pitch_joint
+        6: 1.0    # 拇指 roll  left_finger_1_roll_joint
+        7: 1.0    # 手腕  left_wrist_pitch_joint
+      left_servo_joint_rad_offset:
+        1: 0.0
+        2: 0.0
+        3: 0.0
+        4: 0.0
+        5: 0.0
+        6: 0.0
+        7: 0.0
+      right_servo_joint_rad_sign_by_id:
+        1: -1.0   # 小指  right_finger_5_pitch_joint
+        2: -1.0   # 无名指 right_finger_4_pitch_joint
+        3: 1.0    # 中指  right_finger_3_pitch_joint
+        4: 1.0    # 食指  right_finger_2_pitch_joint
+        5: 1.0    # 拇指 pitch right_finger_1_pitch_joint
+        6: 1.0    # 拇指 roll  right_finger_1_roll_joint
+        7: 1.0    # 手腕  right_wrist_pitch_joint
+      right_servo_joint_rad_offset:
+        1: 0.0
+        2: 0.0
+        3: 0.0
+        4: 0.0
+        5: 0.0
+        6: 0.0
+        7: 0.0
+      right_servo_neutral_span_by_id:
+        7: { span: 0.095 }
+      left_servo_channels:
+        1: "left_finger_5_pitch_joint"
+        2: "left_finger_4_pitch_joint"
+        3: "left_finger_3_pitch_joint"
+        4: "left_finger_2_pitch_joint"
+        5: "left_finger_1_pitch_joint"
+        6: "left_finger_1_roll_joint"
+        7: "left_wrist_pitch_joint"
+      right_servo_channels:
+        1: "right_finger_5_pitch_joint"
+        2: "right_finger_4_pitch_joint"
+        3: "right_finger_3_pitch_joint"
+        4: "right_finger_2_pitch_joint"
+        5: "right_finger_1_pitch_joint"
+        6: "right_finger_1_roll_joint"
+        7: "right_wrist_pitch_joint"

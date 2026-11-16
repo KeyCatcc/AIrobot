@@ -21,3 +21,11 @@ D/
 *.md
 *.txt
 
+# Local deployment checkpoints and credentials must never enter Git.
+deployment/checkpoints/
+**/config.toml
+**/密钥*
+**/*.env
+**/.env*
+**/*.bak
+

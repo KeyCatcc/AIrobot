@@ -1,0 +1,6 @@
+shm:
+  path: /dev/shm/arm_shared_memory_j14     # 必须和电机进程创建出来的内存名称一致
+  topic: /ymbot/motor_trajectory
+  rate_hz: 50
+  start_ramp_sec: 2.0
+  end_ramp_sec: 2.0

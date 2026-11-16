@@ -1,0 +1,15 @@
+{
+  "purpose": "Offline material selection only; not an apply_action_batch input or execution catalog",
+  "enabled": false,
+  "candidates": [
+    {"id": "chat_small_open", "source_pose": "attentive_listen", "preview_amplitude": 0.35, "intent": "小幅双臂展开，观察是否适合说话穿插；不绑定倾听语义", "status": "pending_preview"},
+    {"id": "chat_soft_gather", "source_pose": "hands_together", "preview_amplitude": 0.35, "intent": "双臂轻收拢，不执行手指动作；检查是否呈现祈祷或合十等强语义", "status": "pending_preview"},
+    {"id": "chat_single_beat", "source_pose": "confident_assertive", "preview_amplitude": 0.35, "intent": "单臂轻抬的节奏动作素材；检查是否过于强调", "status": "pending_preview"}
+  ],
+  "notes": [
+    "仅筛选已有姿势，不修改原动作、enabled清单或RAI工具",
+    "预览现有动作时长，不代表最终聊天时长；素材确认后单独制作短时变体",
+    "沿用当前机器人motor.yaml与实际桥接映射；模型效果不能替代物理完成确认",
+    "说话期间使用优先；倾听阶段后续扩展"
+  ]
+}

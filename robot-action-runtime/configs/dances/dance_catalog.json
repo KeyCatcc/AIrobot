@@ -1,0 +1,35 @@
+{
+  "dances": [
+    {
+      "name": "bishangguan_smoke",
+      "csv_path": "bishangguan_smoke_bridge.csv",
+      "enabled": false,
+      "rai_exposed": false,
+      "explicit_request_only": true,
+      "description": "碧山关舞蹈的短片段联调：源 CSV 第 620 帧起 300 帧，0.2 倍速约 50 秒。",
+      "fps": 30.0,
+      "speed": 0.2,
+      "loop": false,
+      "return_home": true,
+      "play_audio": false
+    },
+    {
+      "name": "bishangguan",
+      "csv_path": "bishangguan.csv",
+      "enabled": true,
+      "rai_exposed": true,
+      "aliases": ["碧山关", "bishangguan"],
+      "explicit_request_only": true,
+      "description": "碧山关舞蹈；明确请求跳舞或表演时可选择，无音乐、单次回零。",
+      "fps": 30.0,
+      "speed": 0.5,
+      "loop": false,
+      "return_home": true,
+      "play_audio": false,
+      "use_wall_clock_motion": true,
+      "motion_poll_hz": 100.0,
+      "no_waist": true,
+      "home_duration_sec": 6.0
+    }
+  ]
+}
